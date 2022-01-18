@@ -1,33 +1,31 @@
 <?php
 namespace App\Supports\Helpers\ApiResponse;
 
-use Illuminate\Support\Facades\Response as FacadesResponse;
+use Illuminate\Support\Facades\Response;
 
-/**
- * api响应格式
- */
 class ApiResponse
 {
-    public function error(String $message, int $status = 400, int $code)
+    public function error(string $message, int $status = 400, int $code = 400, array $data = [])
     {
-        return FacadesResponse::json([
+        return Response::json([
             'msg' => $message,
-            'code' => $code ?: $status
+            'code' => $code ?: $status,
+            'data' => $data
         ], $status);
     }
 
-    public function sendMessage(String $message, int $status = 200)
+    public function sendMessage(string $message, int $status = 200)
     {
-        return FacadesResponse::json(['msg' => $message], $status);
+        return Response::json(['msg' => $message], $status);
     }
 
-    public function sendData(array $data, int $status = 200)
+    public function sendData(mixed $data, int $status = 200)
     {
-        return FacadesResponse::json($data, $status);
+        return Response::json($data, $status);
     }
 
     public function noContent(int $status = 204)
     {
-        return FacadesResponse::noContent($status);
+        return Response::noContent($status);
     }
 }

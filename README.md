@@ -45,6 +45,10 @@
 --------User                                对应控制器的模块
 ----------Auth                              对应控制器的功能
 ------------AuthRequest                     具体表单验证实现
+------Resources                             api资源
+--------User                                对应控制器的模块
+----------Auth                              对应控制器的功能
+------------AuthResource                    具体实现
 ----Models
 ----Providers
 ----Supports                                自定义的包或者辅助类存放位置
@@ -117,5 +121,7 @@ composer install
 | 包名  | 版本  | 说明  | 环境|
 | ---- | ---- | ---- | ---- |
 |  laravel/octane  | ^1.1  | 服务器 |  |
+|  overtrue/laravel-lang | ^5.0 | 中文语言提示| |
 |  barryvdh/laravel-ide-helper | ^2.11 | ide助手 | dev |
 |  doctrine/dbal | ^3.2 | orm助手 | dev |
+|  lfyw/opencrypt| ^1.0 | 加密助手 | |

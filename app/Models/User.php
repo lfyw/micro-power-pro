@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -12,15 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guard = [];
+
+    protected $casts = [
+        'status' => 'boolean'
     ];
 
     /**
@@ -30,15 +25,29 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
+
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * creator
+     * 创建者
+     * @return BelongsTo
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function creator():BelongsTo
+    {
+        return $this->belongsTo(self::class, 'creator_id');
+    }
+
+    /**
+     * createSingleToken
+     *
+     * @param  mixed $client
+     * @return string
+     */
+    public function createSingleToken(string $client):string
+    {
+        $this->tokens()->whereName($client)->delete();
+        return $this->createToken($client)->plainTextToken;
+    }
+
 }

@@ -12,9 +12,9 @@ if (!function_exists('error')){
      * @param  array $data 特殊情况下需要返回数据时使用
      * @return void
      */
-    function error(string $message, int $status, int $code, array $data)
+    function error(string $message, int $status = 400, int $code = null, array $data = [])
     {
-        return XResponse::error($message, $status, $code, $data);
+        return XResponse::error($message, $status, $code ?: $status, $data);
     }
 }
 
@@ -25,7 +25,7 @@ if(!function_exists('no_content')){
      * @param  int $status http 状态码
      * @return void
      */
-    function no_content(int $status)
+    function no_content(int $status = 204)
     {
         return XResponse::noContent($status);
     }
@@ -39,7 +39,7 @@ if(!function_exists('send_message')){
      * @param  int $status 响应 http 状态码
      * @return void
      */
-    function send_message(string $message, int $status)
+    function send_message(string $message, int $status = 200)
     {
         return XResponse::sendMessage($message, $status);
     }
@@ -49,11 +49,11 @@ if(!function_exists('send_data')){
     /**
      * send_data
      * 数据响应
-     * @param  array $data 响应数据
+     * @param  mixed $data 响应数据
      * @param  int $status 响应 http 状态码
      * @return void
      */
-    function send_data(array $data, int $status)
+    function send_data(mixed $data, int $status = 200)
     {
         return XResponse::sendData($data, $status);
     }

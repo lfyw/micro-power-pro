@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Supports\Helpers\ApiResponse\ApiResponse;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+        /* 绑定响应类 */
+        $this->app->singleton('xresponse', ApiResponse::class);
     }
 
     /**
